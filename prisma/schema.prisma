@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SiteSettings {
+  id          String   @id @default(cuid())
+  brandName   String   @default("Marble Web")
+  siteTitle   String   @default("Lapis & Celikag Marble")
+  description String   @default("Exclusive Natural Stone Collection")
+  logoUrl     String?
+  logoWidth   Int      @default(150)
+  logoHeight  Int      @default(56)
+  showNavbarLogo Boolean @default(true)
+  showFooterLogo Boolean @default(true)
+  faviconUrl  String?
+  googleAnalyticsId String?
+
+  // SEO Settings
+  seoTitle       String?
+  seoDescription String?
+  seoKeywords    String?
+  
+  // Contact Info
+  address     String   @default("Mermerciler Sanayi Sitesi, İstanbul")
+  phone       String   @default("+90 212 000 00 00")
+  email       String   @default("info@marbleweb.com")
+  mapEmbedUrl String?
+  
+  // Social Media
+  instagram   String?
+  facebook    String?
+  linkedin    String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model HomePageContent {
+  id            String   @id @default(cuid())
+  
+  // Hero Section
+  heroTitle     String   @default("Doğanın Eşsiz Sanatı Mermer ile Buluşuyor")
+  heroSubtitle  String   @default("Lapis & Celikag Mermer, projelerinize estetik ve zarafet katan, dünyanın en seçkin doğal taş koleksiyonlarını sunar.")
+  heroBgUrl     String?
+  heroBtn1Text  String   @default("Koleksiyonu Keşfet")
+  heroBtn1Link  String   @default("/collections")
+  heroBtn2Text  String   @default("Projelerimiz")
+  heroBtn2Link  String   @default("/projects")
+  
+  // Home About Section
+  aboutTitle    String   @default("Mermerin Zarafetini Ustalıkla İşliyoruz")
+  aboutText     String   @default("Yılların verdiği tecrübe ile kaliteyi bir araya getiriyoruz.")
+  aboutImageUrl String?
+  aboutBtnText  String   @default("Hikayemizi Oku")
+  aboutBtnLink  String   @default("/about")
+  
+  // Collections Section
+  collectionsTitle    String   @default("Öne Çıkan Koleksiyonlar")
+  collectionsSubtitle String   @default("Doğanın en saf haliyle şekillenen, mekanlarınıza değer katacak özel seçki.")
+  
+  // Projects Section
+  projectsTitle    String   @default("Son Projelerimiz")
+  projectsSubtitle String   @default("Mimari vizyonu gerçeğe dönüştürdüğümüz seçkin referanslarımızdan örnekler.")
+  
+  // CTA Section
+  ctaTitle      String   @default("Projeniz İçin Mükemmel Taşı Birlikte Seçelim")
+  ctaText       String   @default("Uzman ekibimizle iletişime geçin.")
+  ctaBgUrl      String?
+  ctaBtnText    String   @default("İletişime Geçin")
+  ctaBtnLink    String   @default("/contact")
+
+  updatedAt     DateTime @updatedAt
+}
+
+model AboutPageContent {
+  id             String   @id @default(cuid())
+  title          String   @default("Hakkımızda")
+  mainText       String   @default("Doğal taşın zamansız güzelliği...")
+  
+  storyTitle     String   @default("Hikayemiz")
+  storyText      String   @default("Yıllar önce başlayan yolculuğumuz...")
+  storyImageUrl  String?
+  
+  visionTitle    String   @default("Vizyonumuz")
+  visionText     String   @default("Sektörde öncü olmak...")
+  visionImageUrl String?
+
+  updatedAt      DateTime @updatedAt
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  name        String
+  slug        String         @unique
+  description String?
+  imageUrl    String
+  categoryId  String
+  category    Category       @relation(fields: [categoryId], references: [id])
+  images      ProductImage[]
+  featured    Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  catalogUrl  String?
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String?
+  order     Int      @default(0)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+  imageUrl    String
+  location    String?
+  year        Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  catalogUrl  String?
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  coverImage  String?
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  content   String
+  avatarUrl String?
+  featured  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
