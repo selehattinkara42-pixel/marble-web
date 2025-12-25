@@ -99,10 +99,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <div
                         className="
                             text-left
-                            [&_*]:!hyphens-none [&_*]:!text-left [&_*]:!whitespace-normal [&_*]:!break-words [&_*]:!word-break-normal
-                            [&>p]:mb-6 [&>p]:leading-relaxed 
-                            [&>p]:text-base md:[&>p]:text-lg 
-                            [&>ul]:list-disc [&>ul]:pl-5 
+                            [&_*]:!hyphens-none [&_*]:!text-left [&_*]:!whitespace-normal [&_*]:!break-words [&_*]:![word-break:normal]
+                            [&>p]:mb-6 [&>p]:leading-relaxed
+                            [&>p]:text-base md:[&>p]:text-lg
+                            [&>ul]:list-disc [&>ul]:pl-5
                             [&>ol]:list-decimal [&>ol]:pl-5
                         "
                         dangerouslySetInnerHTML={{ __html: post.content }}
