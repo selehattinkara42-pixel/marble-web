@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { Button } from "@/components/ui/Button"
+import ImageUpload from "@/components/admin/ImageUpload"
 import { updateSettings } from "./actions"
 import { Instagram, Facebook, Linkedin } from "lucide-react"
 
@@ -101,16 +102,11 @@ export default async function SettingsPage() {
                     <h2 className="text-xl font-bold mb-4 border-b border-border pb-2">Logo & Favicon</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium">Logo Yükle</label>
-                            <div className="flex items-center gap-4">
-                                <input type="file" name="logo" accept="image/*" className="w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" />
-                            </div>
-                            {settings?.logoUrl && (
-                                <div className="mt-4 p-4 bg-muted/50 rounded-lg border border-border inline-block text-center w-full">
-                                    <p className="text-xs text-muted-foreground mb-2">Mevcut Logo:</p>
-                                    <img src={settings.logoUrl} alt="Logo" className="h-12 object-contain mx-auto" style={{ height: settings.logoHeight || 56 }} />
-                                </div>
-                            )}
+                            <ImageUpload
+                                name="logoUrl"
+                                label="Logo Yükle"
+                                defaultValue={settings?.logoUrl}
+                            />
                         </div>
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
@@ -160,16 +156,11 @@ export default async function SettingsPage() {
                         </div>
 
                         <div className="space-y-2 col-span-2 border-t border-border pt-6">
-                            <label className="text-sm font-medium">Favicon Yükle</label>
-                            <div className="flex items-center gap-4">
-                                <input type="file" name="favicon" accept="image/*" className="w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" />
-                            </div>
-                            {settings?.faviconUrl && (
-                                <div className="mt-4 p-4 bg-muted/50 rounded-lg border border-border inline-block">
-                                    <p className="text-xs text-muted-foreground mb-2">Mevcut Favicon:</p>
-                                    <img src={settings.faviconUrl} alt="Favicon" className="h-8 w-8 object-contain" />
-                                </div>
-                            )}
+                            <ImageUpload
+                                name="faviconUrl"
+                                label="Favicon Yükle"
+                                defaultValue={settings?.faviconUrl}
+                            />
                         </div>
                     </div>
                 </div>
