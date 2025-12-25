@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '*.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+      },
     ],
     // Enable image optimization
     formats: ['image/avif', 'image/webp'],
