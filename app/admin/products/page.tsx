@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button"
 import { createProduct, deleteProduct } from "./actions"
 import { Plus, Trash2, Edit } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export const dynamic = 'force-dynamic'
 
@@ -77,7 +78,15 @@ export default async function ProductsPage() {
                                 {products.map((product) => (
                                     <tr key={product.id} className="hover:bg-muted/50">
                                         <td className="px-6 py-4">
-                                            <img src={product.imageUrl} alt={product.name} className="w-12 h-12 object-cover rounded-md" />
+                                            <div className="relative w-12 h-12 rounded-md overflow-hidden">
+                                                <Image
+                                                    src={product.imageUrl}
+                                                    alt={product.name}
+                                                    fill
+                                                    className="object-cover"
+                                                    sizes="48px"
+                                                />
+                                            </div>
                                         </td>
                                         <td className="px-6 py-4 font-medium">{product.name}</td>
                                         <td className="px-6 py-4 text-muted-foreground">{product.category.name}</td>
