@@ -11,13 +11,13 @@ export async function createProduct(formData: FormData) {
     const categoryId = formData.get("categoryId") as string
     const featured = formData.get("featured") === "on"
 
-    const imageFile = formData.get("image") as File
-    let imageUrl = ""
+    // Old file upload (Deprecated for Vercel 4.5MB limit)
+    // const imageFile = formData.get("image") as File
 
-    if (imageFile && imageFile.size > 0) {
-        imageUrl = await uploadFile(imageFile)
-    } else {
-        // Fallback or error? For now fallback to placeholder if empty
+    // New Client-Side Upload (imageUrl string)
+    let imageUrl = formData.get("imageUrl") as string
+
+    if (!imageUrl) {
         imageUrl = "https://images.unsplash.com/photo-1598556776374-0a37547526bb?q=80&w=1000&auto=format&fit=crop"
     }
 
@@ -49,12 +49,12 @@ export async function updateProduct(id: string, formData: FormData) {
     const categoryId = formData.get("categoryId") as string
     const featured = formData.get("featured") === "on"
 
-    const imageFile = formData.get("image") as File
-    let imageUrl: string | undefined = undefined
+    // const imageFile = formData.get("image") as File
+    const imageUrl = formData.get("imageUrl") as string
 
-    if (imageFile && imageFile.size > 0) {
-        imageUrl = await uploadFile(imageFile)
-    }
+    // if (imageFile && imageFile.size > 0) {
+    //    imageUrl = await uploadFile(imageFile)
+    // }
 
     await prisma.product.update({
         where: { id },
