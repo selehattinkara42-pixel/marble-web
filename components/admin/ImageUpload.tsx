@@ -84,10 +84,11 @@ export default function ImageUpload({
             {/* Hidden input to store the URL for the form submission */}
             <input type="hidden" name={name} value={preview || ""} required={required} />
 
-            <div className="flex items-start gap-4">
+            {/* Mobile-friendly layout: Stack on small screens, row on larger */}
+            <div className="flex flex-col sm:flex-row items-start gap-4">
                 {preview ? (
-                    <div className="relative group">
-                        <div className="relative w-32 h-32 rounded-lg border border-border overflow-hidden bg-muted flex items-center justify-center">
+                    <div className="relative group shrink-0">
+                        <div className="relative w-full sm:w-32 h-40 sm:h-32 rounded-lg border border-border overflow-hidden bg-muted flex items-center justify-center">
                             {isPDF ? (
                                 <div className="text-center p-2">
                                     <FileText className="w-8 h-8 mx-auto text-primary mb-1" />
@@ -104,8 +105,9 @@ export default function ImageUpload({
                         </div>
                         <button
                             onClick={handleRemove}
-                            className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                            className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-2 shadow-sm z-10 hover:bg-destructive/90 transition-colors"
                             type="button"
+                            title="Kaldır"
                         >
                             <X className="w-4 h-4" />
                         </button>
@@ -113,7 +115,7 @@ export default function ImageUpload({
                 ) : (
                     <div
                         onClick={() => inputFileRef.current?.click()}
-                        className={`w-32 h-32 rounded-lg border-2 border-dashed border-border hover:border-primary/50 transition-colors flex flex-col items-center justify-center cursor-pointer bg-muted/20 ${uploading ? 'pointer-events-none opacity-50' : ''}`}
+                        className={`w-full sm:w-32 h-32 rounded-lg border-2 border-dashed border-border hover:border-primary/50 transition-colors flex flex-col items-center justify-center cursor-pointer bg-muted/20 ${uploading ? 'pointer-events-none opacity-50' : ''}`}
                     >
                         {uploading ? (
                             <Loader2 className="w-8 h-8 text-muted-foreground animate-spin" />
