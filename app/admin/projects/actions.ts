@@ -11,20 +11,19 @@ export async function createProject(formData: FormData) {
     const location = formData.get("location") as string
     const year = formData.get("year") ? parseInt(formData.get("year") as string) : null
 
-    const imageFile = formData.get("image") as File
-    let imageUrl = ""
+    // Old file upload
+    // const imageFile = formData.get("image") as File
 
-    if (imageFile && imageFile.size > 0) {
-        imageUrl = await uploadFile(imageFile)
-    } else {
+    // New Client-Side Upload
+    let imageUrl = formData.get("imageUrl") as string
+
+    if (!imageUrl) {
         imageUrl = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop"
     }
 
-    const catalogFile = formData.get("catalog") as File
-    let catalogUrl = ""
-    if (catalogFile && catalogFile.size > 0) {
-        catalogUrl = await uploadFile(catalogFile)
-    }
+    // const catalogFile = formData.get("catalog") as File
+    const catalogUrl = formData.get("catalogUrl") as string
+    // if (catalogFile && catalogFile.size > 0) { ... }
 
     await prisma.project.create({
         data: {
@@ -55,18 +54,11 @@ export async function updateProject(id: string, formData: FormData) {
     const location = formData.get("location") as string
     const year = formData.get("year") ? parseInt(formData.get("year") as string) : null
 
-    const imageFile = formData.get("image") as File
-    let imageUrl: string | undefined = undefined
+    // const imageFile = formData.get("image") as File
+    const imageUrl = formData.get("imageUrl") as string
 
-    if (imageFile && imageFile.size > 0) {
-        imageUrl = await uploadFile(imageFile)
-    }
-
-    const catalogFile = formData.get("catalog") as File
-    let catalogUrl: string | undefined = undefined
-    if (catalogFile && catalogFile.size > 0) {
-        catalogUrl = await uploadFile(catalogFile)
-    }
+    // const catalogFile = formData.get("catalog") as File
+    const catalogUrl = formData.get("catalogUrl") as string
 
     await prisma.project.update({
         where: { id },
