@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { Button } from "@/components/ui/Button"
+import ImageUpload from "@/components/admin/ImageUpload"
 import { createProject, deleteProject } from "./actions"
 import { Plus, Trash2, Edit } from "lucide-react"
 import Link from "next/link"
@@ -42,12 +43,10 @@ export default async function ProjectsPage() {
                                 <input name="year" type="number" className="w-full h-10 px-3 rounded-md border border-input bg-background" placeholder="2025" />
                             </div>
                             <div>
-                                <label className="text-sm font-medium">Görsel Yükle</label>
-                                <input type="file" name="image" accept="image/*" required className="w-full" />
+                                <ImageUpload name="imageUrl" label="Proje Görseli" required />
                             </div>
                             <div>
-                                <label className="text-sm font-medium">Katalog PDF (İsteğe Bağlı)</label>
-                                <input type="file" name="catalog" accept=".pdf" className="w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" />
+                                <ImageUpload name="catalogUrl" label="Katalog PDF (İsteğe Bağlı)" accept=".pdf" folder="catalogs" />
                             </div>
                             <div>
                                 <label className="text-sm font-medium">Açıklama</label>
