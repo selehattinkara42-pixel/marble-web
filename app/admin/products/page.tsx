@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { Button } from "@/components/ui/Button"
+import ImageUpload from "@/components/admin/ImageUpload"
 import { createProduct, deleteProduct } from "./actions"
 import { Plus, Trash2, Edit } from "lucide-react"
 import Link from "next/link"
@@ -46,8 +47,7 @@ export default async function ProductsPage() {
                                 </select>
                             </div>
                             <div>
-                                <label className="text-sm font-medium">Görsel Yükle</label>
-                                <input type="file" name="image" accept="image/*" required className="w-full" />
+                                <ImageUpload name="imageUrl" label="Ürün Görseli" required />
                             </div>
                             <div>
                                 <label className="text-sm font-medium">Açıklama</label>
