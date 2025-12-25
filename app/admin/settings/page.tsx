@@ -209,7 +209,7 @@ export default async function SettingsPage() {
 
                 {/* Social Media */}
                 <div className="bg-background p-6 rounded-xl shadow-sm border border-border">
-                    <h2 className="text-xl font-bold mb-4 border-b border-border pb-2">Sosyal Medya</h2>
+                    <h2 className="text-xl font-bold mb-4 border-b border-border pb-2">Sosyal Medya & Footer</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="space-y-2">
                             <label className="text-sm font-medium flex items-center gap-2"><Instagram className="w-4 h-4" /> Instagram URL</label>
@@ -237,6 +237,16 @@ export default async function SettingsPage() {
                                 className="w-full h-10 px-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
                                 placeholder="https://linkedin.com/..."
                             />
+                        </div>
+                        <div className="col-span-1 md:col-span-3 space-y-2 border-t border-border pt-4">
+                            <label className="text-sm font-medium">Footer Telif Hakkı (Copyright) Metni</label>
+                            <input
+                                name="footerCopyright"
+                                defaultValue={settings?.footerCopyright || ""}
+                                className="w-full h-10 px-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                                placeholder="© 2025 Şahinler Mermer. Tüm hakları saklıdır."
+                            />
+                            <p className="text-xs text-muted-foreground">Sayfanın en altındaki yazı. Boş bırakılırsa otomatik oluşturulur.</p>
                         </div>
                     </div>
                 </div>
