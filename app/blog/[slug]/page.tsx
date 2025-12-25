@@ -97,15 +97,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         </div>
                     )}
                     <div
-                        className="[&>p]:mb-6 [&>p]:leading-relaxed [&>p]:text-base md:[&>p]:text-lg [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:list-decimal [&>ol]:pl-5 text-left"
-                        style={{
-                            wordBreak: 'normal',
-                            overflowWrap: 'break-word',
-                            hyphens: 'none',
-                            WebkitHyphens: 'none',
-                            MozHyphens: 'none',
-                            msHyphens: 'none'
-                        }}
+                        className="
+                            text-left
+                            [&_*]:!hyphens-none [&_*]:!text-left [&_*]:!whitespace-normal [&_*]:!break-words [&_*]:!word-break-normal
+                            [&>p]:mb-6 [&>p]:leading-relaxed 
+                            [&>p]:text-base md:[&>p]:text-lg 
+                            [&>ul]:list-disc [&>ul]:pl-5 
+                            [&>ol]:list-decimal [&>ol]:pl-5
+                        "
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
                 </div>
