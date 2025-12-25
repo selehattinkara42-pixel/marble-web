@@ -21,6 +21,7 @@ export async function updateSettings(formData: FormData) {
     const instagram = formData.get("instagram") as string
     const facebook = formData.get("facebook") as string
     const linkedin = formData.get("linkedin") as string
+    const footerCopyright = formData.get("footerCopyright") as string
 
     const logoHeight = parseInt(formData.get("logoHeight") as string) || 56
     const showNavbarLogo = formData.get("showNavbarLogo") === "on"
@@ -48,6 +49,7 @@ export async function updateSettings(formData: FormData) {
         instagram,
         facebook,
         linkedin,
+        footerCopyright: footerCopyright || null,
         logoHeight,
         logoWidth: parseInt(formData.get("logoWidth") as string) || 150,
         showNavbarLogo,
