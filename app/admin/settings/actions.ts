@@ -26,8 +26,12 @@ export async function updateSettings(formData: FormData) {
     const showNavbarLogo = formData.get("showNavbarLogo") === "on"
     const showFooterLogo = formData.get("showFooterLogo") === "on"
 
-    const logoFile = formData.get("logo") as File
-    const faviconFile = formData.get("favicon") as File
+    // const logoFile = formData.get("logo") as File
+    // const faviconFile = formData.get("favicon") as File
+
+    // Client-side uploads
+    const newLogoUrl = formData.get("logoUrl") as string
+    const newFaviconUrl = formData.get("faviconUrl") as string
 
     const data: any = {
         brandName,
@@ -50,12 +54,12 @@ export async function updateSettings(formData: FormData) {
         showFooterLogo,
     }
 
-    if (logoFile && logoFile.size > 0) {
-        data.logoUrl = await uploadFile(logoFile)
+    if (newLogoUrl) {
+        data.logoUrl = newLogoUrl
     }
 
-    if (faviconFile && faviconFile.size > 0) {
-        data.faviconUrl = await uploadFile(faviconFile)
+    if (newFaviconUrl) {
+        data.faviconUrl = newFaviconUrl
     }
 
     const first = await prisma.siteSettings.findFirst()
