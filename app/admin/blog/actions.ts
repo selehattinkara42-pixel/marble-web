@@ -1,7 +1,7 @@
 "use server"
 
 import { prisma } from "@/lib/prisma"
-import { uploadFile } from "@/lib/upload"
+import { uploadFile } from "@/lib/storage"
 import { revalidatePath } from "next/cache"
 
 export async function createBlogPost(formData: FormData) {
