@@ -116,6 +116,9 @@ model Product {
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
   catalogUrl  String?
+  origin        String?   @default("Türkiye")
+  usageArea     String?   @default("İç ve Dış Mekan")
+  surfaceFinish String?   @default("Cilalı, Honlu, Fırçalı")
 }
 
 model ProductImage {
