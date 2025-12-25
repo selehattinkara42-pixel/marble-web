@@ -11,12 +11,10 @@ export async function createBlogPost(formData: FormData) {
     const content = formData.get("content") as string
     const published = formData.get("published") === "on"
 
-    const imageFile = formData.get("image") as File
-    let coverImage = ""
+    // const imageFile = formData.get("image") as File
+    let coverImage = formData.get("coverImage") as string
 
-    if (imageFile && imageFile.size > 0) {
-        coverImage = await uploadFile(imageFile)
-    } else {
+    if (!coverImage) {
         coverImage = "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1000&auto=format&fit=crop"
     }
 
@@ -42,12 +40,10 @@ export async function updateBlogPost(id: string, formData: FormData) {
     const content = formData.get("content") as string
     const published = formData.get("published") === "on"
 
-    const imageFile = formData.get("image") as File
-    let coverImage: string | undefined = undefined
+    // const imageFile = formData.get("image") as File
+    const coverImage = formData.get("coverImage") as string
 
-    if (imageFile && imageFile.size > 0) {
-        coverImage = await uploadFile(imageFile)
-    }
+    // if (imageFile && imageFile.size > 0) { ... }
 
     await prisma.blogPost.update({
         where: { id },
