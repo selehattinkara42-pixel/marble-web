@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/Button"
 import { updateHomePage, updateAboutPage } from "./actions"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs"
 import { Save } from "lucide-react"
+import ImageUpload from "@/components/admin/ImageUpload"
+import Image from "next/image"
 
 export const dynamic = 'force-dynamic'
 
@@ -38,13 +40,11 @@ export default async function PagesManagement() {
                                     <textarea name="heroSubtitle" defaultValue={homeContent?.heroSubtitle} rows={2} className="w-full p-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium">Arkaplan Görseli</label>
-                                    <input type="file" name="heroBg" accept="image/*" className="w-full mt-1 text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" />
-                                    {homeContent?.heroBgUrl && (
-                                        <div className="mt-4 relative h-40 w-full overflow-hidden rounded-lg border border-border">
-                                            <img src={homeContent.heroBgUrl} alt="Hero Bg" className="w-full h-full object-cover" />
-                                        </div>
-                                    )}
+                                    <ImageUpload
+                                        name="heroBgUrl"
+                                        label="Arkaplan Görseli"
+                                        defaultValue={homeContent?.heroBgUrl}
+                                    />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                                     <div>
@@ -80,13 +80,11 @@ export default async function PagesManagement() {
                                     <textarea name="aboutText" defaultValue={homeContent?.aboutText} rows={3} className="w-full p-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium">Görsel</label>
-                                    <input type="file" name="aboutImage" accept="image/*" className="w-full mt-1 text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" />
-                                    {homeContent?.aboutImageUrl && (
-                                        <div className="mt-4 relative h-40 w-full overflow-hidden rounded-lg border border-border">
-                                            <img src={homeContent.aboutImageUrl} alt="About" className="w-full h-full object-cover" />
-                                        </div>
-                                    )}
+                                    <ImageUpload
+                                        name="aboutImageUrl"
+                                        label="Görsel"
+                                        defaultValue={homeContent?.aboutImageUrl}
+                                    />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                                     <div>
@@ -144,13 +142,11 @@ export default async function PagesManagement() {
                                     <textarea name="ctaText" defaultValue={homeContent?.ctaText} rows={2} className="w-full p-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium">Arkaplan Görseli</label>
-                                    <input type="file" name="ctaBg" accept="image/*" className="w-full mt-1 text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" />
-                                    {homeContent?.ctaBgUrl && (
-                                        <div className="mt-4 relative h-40 w-full overflow-hidden rounded-lg border border-border">
-                                            <img src={homeContent.ctaBgUrl} alt="CTA Bg" className="w-full h-full object-cover" />
-                                        </div>
-                                    )}
+                                    <ImageUpload
+                                        name="ctaBgUrl"
+                                        label="Arkaplan Görseli"
+                                        defaultValue={homeContent?.ctaBgUrl}
+                                    />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                                     <div>
@@ -202,13 +198,11 @@ export default async function PagesManagement() {
                                     <textarea name="storyText" defaultValue={aboutContent?.storyText} rows={4} className="w-full p-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium">Görsel</label>
-                                    <input type="file" name="storyImage" accept="image/*" className="w-full mt-1 text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" />
-                                    {aboutContent?.storyImageUrl && (
-                                        <div className="mt-4 relative h-40 w-full overflow-hidden rounded-lg border border-border">
-                                            <img src={aboutContent.storyImageUrl} alt="Story" className="w-full h-full object-cover" />
-                                        </div>
-                                    )}
+                                    <ImageUpload
+                                        name="storyImageUrl"
+                                        label="Görsel"
+                                        defaultValue={aboutContent?.storyImageUrl}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -225,13 +219,11 @@ export default async function PagesManagement() {
                                     <textarea name="visionText" defaultValue={aboutContent?.visionText} rows={4} className="w-full p-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium">Görsel</label>
-                                    <input type="file" name="visionImage" accept="image/*" className="w-full mt-1 text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" />
-                                    {aboutContent?.visionImageUrl && (
-                                        <div className="mt-4 relative h-40 w-full overflow-hidden rounded-lg border border-border">
-                                            <img src={aboutContent.visionImageUrl} alt="Vision" className="w-full h-full object-cover" />
-                                        </div>
-                                    )}
+                                    <ImageUpload
+                                        name="visionImageUrl"
+                                        label="Görsel"
+                                        defaultValue={aboutContent?.visionImageUrl}
+                                    />
                                 </div>
                             </div>
                         </div>
