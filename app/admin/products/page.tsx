@@ -53,6 +53,23 @@ export default async function ProductsPage() {
                                 <label className="text-sm font-medium">Açıklama</label>
                                 <textarea name="description" rows={3} className="w-full p-3 rounded-md border border-input bg-background" />
                             </div>
+
+                            {/* Technical Specs */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-muted/20 p-4 rounded-lg border border-border">
+                                <h3 className="col-span-1 md:col-span-3 font-semibold text-sm mb-2 text-primary">Teknik Özellikler</h3>
+                                <div>
+                                    <label className="text-sm font-medium">Menşei</label>
+                                    <input name="origin" defaultValue="Türkiye" className="w-full h-9 px-3 rounded-md border border-input bg-background text-sm" />
+                                </div>
+                                <div>
+                                    <label className="text-sm font-medium">Kullanım Alanı</label>
+                                    <input name="usageArea" defaultValue="İç ve Dış Mekan" className="w-full h-9 px-3 rounded-md border border-input bg-background text-sm" />
+                                </div>
+                                <div>
+                                    <label className="text-sm font-medium">Yüzey İşlem</label>
+                                    <input name="surfaceFinish" defaultValue="Cilalı, Honlu, Fırçalı" className="w-full h-9 px-3 rounded-md border border-input bg-background text-sm" />
+                                </div>
+                            </div>
                             <div className="flex items-center gap-2">
                                 <input type="checkbox" name="featured" id="featured" />
                                 <label htmlFor="featured" className="text-sm font-medium">Öne Çıkan</label>
