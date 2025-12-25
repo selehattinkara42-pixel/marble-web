@@ -10,6 +10,9 @@ export async function createProduct(formData: FormData) {
     const description = formData.get("description") as string
     const categoryId = formData.get("categoryId") as string
     const featured = formData.get("featured") === "on"
+    const origin = formData.get("origin") as string
+    const usageArea = formData.get("usageArea") as string
+    const surfaceFinish = formData.get("surfaceFinish") as string
 
     // Old file upload (Deprecated for Vercel 4.5MB limit)
     // const imageFile = formData.get("image") as File
@@ -29,6 +32,9 @@ export async function createProduct(formData: FormData) {
             imageUrl,
             categoryId,
             featured,
+            origin,
+            usageArea,
+            surfaceFinish,
         },
     })
 
@@ -49,6 +55,11 @@ export async function updateProduct(id: string, formData: FormData) {
     const categoryId = formData.get("categoryId") as string
     const featured = formData.get("featured") === "on"
 
+    // Tech Specs
+    const origin = formData.get("origin") as string
+    const usageArea = formData.get("usageArea") as string
+    const surfaceFinish = formData.get("surfaceFinish") as string
+
     // const imageFile = formData.get("image") as File
     const imageUrl = formData.get("imageUrl") as string
 
@@ -64,6 +75,9 @@ export async function updateProduct(id: string, formData: FormData) {
             description,
             categoryId,
             featured,
+            origin,
+            usageArea,
+            surfaceFinish,
             ...(imageUrl && { imageUrl }),
         },
     })
