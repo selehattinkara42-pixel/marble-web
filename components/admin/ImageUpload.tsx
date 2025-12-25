@@ -31,22 +31,85 @@ export default function ImageUpload({
 
     const isPDF = preview?.endsWith('.pdf') || (preview && accept.includes('pdf') && !preview.match(/\.(jpg|jpeg|png|webp)$/i))
 
+    const resizeImage = (file: File): Promise<File> => {
+        return new Promise((resolve) => {
+            // Only resize images
+            if (!file.type.startsWith('image/')) {
+                resolve(file)
+                return
+            }
+
+            // If file is SVG or small enough (< 2MB), skip
+            if (file.type === 'image/svg+xml' || file.size < 2 * 1024 * 1024) {
+                resolve(file)
+                return
+            }
+
+            const img = document.createElement('img')
+            img.src = URL.createObjectURL(file)
+            img.onload = () => {
+                const canvas = document.createElement('canvas')
+                let width = img.width
+                let height = img.height
+
+                // Max dimension 2560px (Standard 2K/4K friendly, but manageable)
+                const MAX_dimension = 2560
+
+                if (width > height) {
+                    if (width > MAX_dimension) {
+                        height = Math.round((height * MAX_dimension) / width)
+                        width = MAX_dimension
+                    }
+                } else {
+                    if (height > MAX_dimension) {
+                        width = Math.round((width * MAX_dimension) / height)
+                        height = MAX_dimension
+                    }
+                }
+
+                canvas.width = width
+                canvas.height = height
+                const ctx = canvas.getContext('2d')
+                ctx?.drawImage(img, 0, 0, width, height)
+
+                // High quality WebP output
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
+                            type: 'image/webp',
+                            lastModified: Date.now(),
+                        })
+                        resolve(newFile)
+                    } else {
+                        resolve(file) // Fallback
+                    }
+                }, 'image/webp', 0.90) // 90% quality
+            }
+            img.onerror = () => resolve(file)
+        })
+    }
+
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files || event.target.files.length === 0) {
             return
         }
 
-        const file = event.target.files[0]
+        let file = event.target.files[0]
         setUploading(true)
         setError(null)
         setProgress(0)
 
-        // Optimistic preview for images
+        // Optimistic preview
         if (file.type.startsWith("image/")) {
             setPreview(URL.createObjectURL(file))
         }
 
         try {
+            // Resize if necessary before upload
+            if (file.type.startsWith("image/")) {
+                file = await resizeImage(file)
+            }
+
             const newBlob = await upload(file.name, file, {
                 access: 'public',
                 handleUploadUrl: '/api/upload',
@@ -59,7 +122,6 @@ export default function ImageUpload({
         } catch (err) {
             setError('Yükleme sırasında hata oluştu. Lütfen tekrar deneyin.')
             console.error(err)
-            // Revert preview if failed
             if (!defaultValue) setPreview(null)
         } finally {
             setUploading(false)
