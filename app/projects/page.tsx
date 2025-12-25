@@ -24,26 +24,26 @@ export default async function ProjectsPage() {
                         <Link
                             key={project.id}
                             href={`/projects/${project.slug}`}
-                            className={`group relative block ${index % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-video'}`}
+                            className={`group relative block overflow-hidden rounded-xl bg-muted ${index % 3 === 0 ? 'md:col-span-2 md:aspect-[21/9]' : 'md:aspect-video'}`}
                         >
-                            <div className="w-full h-full overflow-hidden rounded-xl bg-muted relative">
+                            <div className="md:absolute md:inset-0 w-full aspect-video md:aspect-auto">
                                 <img
                                     src={project.imageUrl}
                                     alt={project.title}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-60 md:opacity-80 md:group-hover:opacity-100 transition-opacity hidden md:block" />
+                            </div>
 
-                                <div className="absolute bottom-0 left-0 w-full p-8 text-white">
-                                    <div className="flex items-center gap-2 text-primary mb-2 text-sm font-medium uppercase tracking-wider">
-                                        <MapPin className="w-4 h-4" />
-                                        {project.location} {project.year && `• ${project.year}`}
-                                    </div>
-                                    <h2 className="text-3xl font-serif font-bold mb-3 group-hover:text-primary transition-colors">{project.title}</h2>
-                                    <p className="text-white/80 max-w-2xl line-clamp-2 md:line-clamp-none">
-                                        {project.description}
-                                    </p>
+                            <div className="relative p-6 md:absolute md:bottom-0 md:left-0 md:w-full md:p-8 bg-background md:bg-transparent text-foreground md:text-white border-t border-border md:border-none">
+                                <div className="flex items-center gap-2 text-primary mb-2 text-sm font-medium uppercase tracking-wider">
+                                    <MapPin className="w-4 h-4" />
+                                    {project.location} {project.year && `• ${project.year}`}
                                 </div>
+                                <h2 className="text-2xl md:text-3xl font-serif font-bold mb-3 group-hover:text-primary transition-colors">{project.title}</h2>
+                                <p className="text-muted-foreground md:text-white/80 max-w-2xl line-clamp-3 md:line-clamp-none">
+                                    {project.description}
+                                </p>
                             </div>
                         </Link>
                     ))}
