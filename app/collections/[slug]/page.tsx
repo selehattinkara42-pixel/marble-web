@@ -154,15 +154,15 @@ export default async function Page({ params }: Props) {
                             <ul className="space-y-3 text-sm text-muted-foreground">
                                 <li className="flex justify-between border-b border-border pb-2">
                                     <span>Menşei</span>
-                                    <span className="font-medium text-foreground">Türkiye</span>
+                                    <span className="font-medium text-foreground">{product.origin || "Türkiye"}</span>
                                 </li>
                                 <li className="flex justify-between border-b border-border pb-2">
                                     <span>Kullanım Alanları</span>
-                                    <span className="font-medium text-foreground">İç ve Dış Mekan</span>
+                                    <span className="font-medium text-foreground">{product.usageArea || "İç ve Dış Mekan"}</span>
                                 </li>
                                 <li className="flex justify-between border-b border-border pb-2">
                                     <span>Yüzey İşlemleri</span>
-                                    <span className="font-medium text-foreground">Cilalı, Honlu, Fırçalı</span>
+                                    <span className="font-medium text-foreground">{product.surfaceFinish || "Cilalı, Honlu, Fırçalı"}</span>
                                 </li>
                                 <li className="flex justify-between">
                                     <span>Kategori</span>
