@@ -106,7 +106,7 @@ export function Footer({ settings }: FooterProps) {
                 </div>
             </div>
             <div className="container mx-auto px-4 md:px-6 mt-12 pt-8 border-t border-secondary-foreground/10 text-center text-xs text-secondary-foreground/60">
-                © {new Date().getFullYear()} {settings?.brandName || "Marble Web"}. Tüm hakları saklıdır.
+                {settings?.footerCopyright || `© ${new Date().getFullYear()} ${settings?.brandName || "Marble Web"}. Tüm hakları saklıdır.`}
             </div>
         </footer>
     )
