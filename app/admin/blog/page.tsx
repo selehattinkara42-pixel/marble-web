@@ -4,6 +4,8 @@ import { createBlogPost, deleteBlogPost } from "./actions"
 import { Plus, Trash2, Eye, Edit } from "lucide-react"
 import Link from "next/link"
 import RichTextEditor from "@/components/admin/RichTextEditor"
+import ImageUpload from "@/components/admin/ImageUpload"
+import Image from "next/image"
 
 export const dynamic = 'force-dynamic'
 
@@ -38,8 +40,7 @@ export default async function BlogAdminPage() {
                                 <input name="slug" required className="w-full h-10 px-3 rounded-md border border-input bg-background" placeholder="ornek-yazi-basligi" />
                             </div>
                             <div>
-                                <label className="text-sm font-medium">Kapak Görseli</label>
-                                <input type="file" name="image" accept="image/*" className="w-full" />
+                                <ImageUpload name="coverImage" label="Kapak Görseli" />
                             </div>
                             <div>
                                 <label className="text-sm font-medium">Özet (Kısa Açıklama)</label>
@@ -75,7 +76,9 @@ export default async function BlogAdminPage() {
                                     <tr key={post.id} className="hover:bg-muted/50">
                                         <td className="px-6 py-4">
                                             {post.coverImage && (
-                                                <img src={post.coverImage} alt={post.title} className="w-12 h-12 object-cover rounded-md" />
+                                                <div className="relative w-12 h-12 rounded-md overflow-hidden">
+                                                    <Image src={post.coverImage} alt={post.title} fill className="object-cover" />
+                                                </div>
                                             )}
                                         </td>
                                         <td className="px-6 py-4">
