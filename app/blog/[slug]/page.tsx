@@ -88,13 +88,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     )}
                 </header>
 
-                <div className="prose prose-lg dark:prose-invert mx-auto">
+                <div className="prose prose-base md:prose-lg dark:prose-invert mx-auto max-w-none break-words prose-img:rounded-xl prose-img:w-full prose-headings:font-serif">
                     {post.excerpt && (
-                        <p className="lead text-xl text-muted-foreground font-medium mb-8 border-l-4 border-primary pl-6 italic">
+                        <p className="lead text-lg md:text-xl text-muted-foreground font-medium mb-8 border-l-4 border-primary pl-6 italic">
                             {post.excerpt}
                         </p>
                     )}
-                    <div className="whitespace-normal break-words" dangerouslySetInnerHTML={{ __html: post.content }} />
+                    <div className="whitespace-normal break-words [&>p]:mb-4 [&>p]:leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
                 </div>
             </article>
 
