@@ -47,7 +47,9 @@ model HomePageContent {
   // Hero Section
   heroTitle     String   @default("Doğanın Eşsiz Sanatı Mermer ile Buluşuyor")
   heroSubtitle  String   @default("Lapis & Celikag Mermer, projelerinize estetik ve zarafet katan, dünyanın en seçkin doğal taş koleksiyonlarını sunar.")
-  heroBgUrl     String?
+  heroBgUrl     String? // Deprecated in favor of heroImages
+  heroImages    String[] 
+  heroSlideDuration Int @default(5000)
   heroBtn1Text  String   @default("Koleksiyonu Keşfet")
   heroBtn1Link  String   @default("/collections")
   heroBtn2Text  String   @default("Projelerimiz")
