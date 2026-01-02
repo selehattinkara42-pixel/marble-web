@@ -1,7 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/Button"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { HomePageContent } from "@prisma/client"
@@ -11,31 +12,46 @@ interface HeroProps {
 }
 
 export function Hero({ content }: HeroProps) {
+    // If no heroImages, fall back to heroBgUrl, or default image
+    const images = content?.heroImages && content.heroImages.length > 0
+        ? content.heroImages
+        : (content?.heroBgUrl ? [content.heroBgUrl] : ["https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"])
+
+    const [currentIndex, setCurrentIndex] = useState(0)
+    const duration = content?.heroSlideDuration || 5000
+
+    useEffect(() => {
+        if (images.length <= 1) return
+        const interval = setInterval(() => {
+            setCurrentIndex(prev => (prev + 1) % images.length)
+        }, duration)
+        return () => clearInterval(interval)
+    }, [images.length, duration])
+
     return (
         <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-            {/* Background Image */}
+            {/* Background Slider */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-black/40 z-10" />
-                {content?.heroBgUrl ? (
-                    <Image
-                        src={content.heroBgUrl}
-                        alt="Luxury Marble Background"
-                        fill
-                        priority
-                        className="object-cover"
-                        sizes="100vw"
-                    />
-                ) : (
-                    <Image
-                        src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"
-                        alt="Luxury Marble Background"
-                        fill
-                        priority
-                        className="object-cover"
-                        sizes="100vw"
-                        unoptimized
-                    />
-                )}
+                <AnimatePresence mode="popLayout">
+                    <motion.div
+                        key={currentIndex}
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -100 }}
+                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                        className="absolute inset-0"
+                    >
+                        <Image
+                            src={images[currentIndex]}
+                            alt="Luxury Marble Background"
+                            fill
+                            priority
+                            className="object-cover"
+                            sizes="100vw"
+                        />
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
             <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
@@ -91,6 +107,18 @@ export function Hero({ content }: HeroProps) {
                     />
                 </div>
             </motion.div>
+
+            {/* Dots Indicator (Optional, but good for UX) */}
+            {images.length > 1 && (
+                <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
+                    {images.map((_, idx) => (
+                        <div
+                            key={idx}
+                            className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex ? "bg-white w-4" : "bg-white/50"}`}
+                        />
+                    ))}
+                </div>
+            )}
         </section>
     )
 }
