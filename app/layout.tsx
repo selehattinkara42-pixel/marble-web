@@ -1,6 +1,4 @@
 import { prisma } from "@/lib/prisma"
-import { Navbar } from "@/components/layout/Navbar"
-import { Footer } from "@/components/layout/Footer"
 import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 
@@ -53,8 +51,6 @@ export async function generateMetadata() {
   }
 }
 
-import { WhatsAppButton } from "@/components/ui/WhatsAppButton"
-import { ScrollToTop } from "@/components/ui/ScrollToTop"
 import { GoogleAnalytics } from "@/components/GoogleAnalytics"
 
 export default async function RootLayout({
@@ -72,14 +68,9 @@ export default async function RootLayout({
         className={`${inter.variable} ${playfair.variable} antialiased min-h-screen flex flex-col font-sans bg-black text-white`}
       >
         <GoogleAnalytics gaId={settings?.googleAnalyticsId} />
-        <Navbar settings={settings} />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer settings={settings} />
-        <WhatsAppButton phone={settings?.phone} />
-        <ScrollToTop />
+        {children}
       </body>
     </html>
   )
 }
+
