@@ -23,13 +23,11 @@ export async function updateHomePage(formData: FormData) {
     const ctaText = formData.get("ctaText") as string
     const ctaBtnText = formData.get("ctaBtnText") as string
     const ctaBtnLink = formData.get("ctaBtnLink") as string
+    const heroSlideDuration = parseInt(formData.get("heroSlideDuration") as string) || 5000
 
-    // const heroBgFile = formData.get("heroBg") as File
-    // const aboutImageFile = formData.get("aboutImage") as File
-    // const ctaBgFile = formData.get("ctaBg") as File
+    // Get all hero images
+    const heroImages = formData.getAll("heroImages") as string[]
 
-    // Client-side uploads
-    const heroBgUrl = formData.get("heroBgUrl") as string
     const aboutImageUrl = formData.get("aboutImageUrl") as string
     const ctaBgUrl = formData.get("ctaBgUrl") as string
 
@@ -40,6 +38,7 @@ export async function updateHomePage(formData: FormData) {
         heroBtn1Link,
         heroBtn2Text,
         heroBtn2Link,
+        heroSlideDuration,
         aboutTitle,
         aboutText,
         aboutBtnText,
@@ -54,12 +53,9 @@ export async function updateHomePage(formData: FormData) {
         ctaBtnLink,
     }
 
-    if (heroBgUrl) data.heroBgUrl = heroBgUrl
+    if (heroImages.length > 0) data.heroImages = heroImages
     if (aboutImageUrl) data.aboutImageUrl = aboutImageUrl
     if (ctaBgUrl) data.ctaBgUrl = ctaBgUrl
-
-    // Server-side upload is removed
-    // if (heroBgFile && heroBgFile.size > 0) ...
 
     const first = await prisma.homePageContent.findFirst()
     if (first) {
