@@ -2,7 +2,8 @@ import { MetadataRoute } from 'next'
 import { prisma } from '@/lib/prisma'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://marbleweb.com' // Replace with actual domain
+    const settings = await prisma.siteSettings.findFirst()
+    const baseUrl = settings?.siteUrl?.replace(/\/$/, "") || 'https://marbleweb.com'
 
     // Static pages
     const staticPages = [
@@ -12,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '/projects',
         '/blog',
         '/contact',
+        '/gallery', // Added Gallery
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
