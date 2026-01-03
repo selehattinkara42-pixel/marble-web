@@ -37,7 +37,16 @@ export default async function SettingsPage() {
                                 className="w-full h-10 px-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
                             />
                         </div>
-                        <div className="col-span-2 space-y-2">
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium">Site URL (Domain)</label>
+                            <input
+                                name="siteUrl"
+                                defaultValue={settings?.siteUrl || "https://"}
+                                placeholder="https://sahinlermermer.com"
+                                className="w-full h-10 px-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                            />
+                        </div>
+                        <div className="col-span-1 md:col-span-2 space-y-2">
                             <label className="text-sm font-medium">Site Açıklaması (SEO)</label>
                             <textarea
                                 name="description"
