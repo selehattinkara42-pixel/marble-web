@@ -120,7 +120,7 @@ export default function ImageUpload({
 
             setPreview(newBlob.url)
         } catch (err) {
-            setError('Yükleme sırasında hata oluştu. Lütfen tekrar deneyin.')
+            setError(`Yükleme sırasında hata oluştu: ${(err as Error).message}`)
             console.error(err)
             if (!defaultValue) setPreview(null)
         } finally {
