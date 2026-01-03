@@ -68,6 +68,28 @@ export default async function RootLayout({
         className={`${inter.variable} ${playfair.variable} antialiased min-h-screen flex flex-col font-sans bg-black text-white`}
       >
         <GoogleAnalytics gaId={settings?.googleAnalyticsId} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": settings?.brandName || "Marble Web",
+              "url": settings?.siteUrl || "https://marbleweb.com",
+              "logo": settings?.logoUrl || "",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": settings?.phone,
+                "contactType": "customer service"
+              },
+              "sameAs": [
+                settings?.instagram,
+                settings?.facebook,
+                settings?.linkedin
+              ].filter(Boolean)
+            })
+          }}
+        />
         {children}
       </body>
     </html>
