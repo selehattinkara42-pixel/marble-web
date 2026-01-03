@@ -1,9 +1,8 @@
 "use client"
-import { Upload, X } from "lucide-react"
+import { Upload, X, Loader2 } from "lucide-react"
 import Image from "next/image"
-import { uploadToBlob } from "@/lib/upload"
+import { upload } from "@vercel/blob/client"
 import { useRef, useState } from "react"
-import { cn } from "@/lib/utils"
 
 interface MultiImageUploadProps {
     name: string
@@ -14,30 +13,44 @@ interface MultiImageUploadProps {
 export default function MultiImageUpload({ name, label, defaultValues = [] }: MultiImageUploadProps) {
     const [images, setImages] = useState<string[]>(defaultValues)
     const [isUploading, setIsUploading] = useState(false)
+    const [progress, setProgress] = useState(0)
     const fileInputRef = useRef<HTMLInputElement>(null)
-
-    // Hidden input to submit the array of images as a JSON string (or we can handle it in formData)
-    // Actually, FORMDATA with array values works by appending multiple fields with same name.
-    // BUT, storing as hidden inputs is easier to visualize.
-    // Let's use hidden inputs for each URL.
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files
         if (!files || files.length === 0) return
 
         setIsUploading(true)
+        setProgress(0)
+
         try {
             const newUrls: string[] = []
+            // Using a loop to upload files
             for (let i = 0; i < files.length; i++) {
-                const url = await uploadToBlob(files[i])
-                newUrls.push(url)
+                const file = files[i]
+
+                // Using Vercel Blob client-side upload
+                // Note: Ensure /api/upload route exists and handles token generation as per Vercel docs
+                const newBlob = await upload(file.name, file, {
+                    access: 'public',
+                    handleUploadUrl: '/api/upload',
+                    onUploadProgress: (progressEvent) => {
+                        // Calculate total progress roughly
+                        const currentProgress = ((i + (progressEvent.percentage / 100)) / files.length) * 100
+                        setProgress(Math.round(currentProgress))
+                    }
+                })
+
+                newUrls.push(newBlob.url)
             }
+
             setImages(prev => [...prev, ...newUrls])
         } catch (error) {
             console.error("Upload failed", error)
-            alert("Görsel yüklenirken bir hata oluştu.")
+            alert("Görsel yüklenirken bir hata oluştu: " + (error as any).message)
         } finally {
             setIsUploading(false)
+            setProgress(0)
             if (fileInputRef.current) {
                 fileInputRef.current.value = ""
             }
@@ -50,7 +63,10 @@ export default function MultiImageUpload({ name, label, defaultValues = [] }: Mu
 
     return (
         <div className="space-y-4">
-            <label className="text-sm font-medium">{label}</label>
+            <label className="text-sm font-medium flex justify-between">
+                {label}
+                {isUploading && <span className="text-xs text-muted-foreground">%{progress}</span>}
+            </label>
 
             {/* Hidden inputs to be gathered by server action */}
             {images.map((url, index) => (
@@ -59,7 +75,7 @@ export default function MultiImageUpload({ name, label, defaultValues = [] }: Mu
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {images.map((url, index) => (
-                    <div key={index} className="relative aspect-video rounded-lg overflow-hidden border border-border group">
+                    <div key={index} className="relative aspect-video rounded-lg overflow-hidden border border-border group bg-muted">
                         <Image
                             src={url}
                             alt={`Slide ${index + 1}`}
@@ -69,7 +85,7 @@ export default function MultiImageUpload({ name, label, defaultValues = [] }: Mu
                         <button
                             type="button"
                             onClick={() => removeImage(index)}
-                            className="absolute top-2 right-2 p-1 bg-destructive text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute top-2 right-2 p-1 bg-destructive text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-destructive/90"
                         >
                             <X className="w-4 h-4" />
                         </button>
@@ -84,7 +100,7 @@ export default function MultiImageUpload({ name, label, defaultValues = [] }: Mu
                     disabled={isUploading}
                     className="flex items-center justify-center gap-2 px-4 py-2 border border-input rounded-md hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    <Upload className="w-4 h-4" />
+                    {isUploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                     {isUploading ? "Yükleniyor..." : "Görsel Ekle"}
                 </button>
                 <span className="text-xs text-muted-foreground">
