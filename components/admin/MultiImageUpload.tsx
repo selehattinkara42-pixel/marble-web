@@ -34,6 +34,7 @@ export default function MultiImageUpload({ name, label, defaultValues = [] }: Mu
                 const newBlob = await upload(file.name, file, {
                     access: 'public',
                     handleUploadUrl: '/api/upload',
+                    addRandomSuffix: true,
                     onUploadProgress: (progressEvent) => {
                         // Calculate total progress roughly
                         const currentProgress = ((i + (progressEvent.percentage / 100)) / files.length) * 100
