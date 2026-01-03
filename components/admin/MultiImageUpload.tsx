@@ -31,10 +31,14 @@ export default function MultiImageUpload({ name, label, defaultValues = [] }: Mu
 
                 // Using Vercel Blob client-side upload
                 // Note: Ensure /api/upload route exists and handles token generation as per Vercel docs
-                const newBlob = await upload(file.name, file, {
+                // Manually rename file to avoid duplicate errors
+                const filename = `${Date.now()}-${Math.random().toString(36).substring(7)}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`
+                const renamedFile = new File([file], filename, { type: file.type })
+
+                // Using Vercel Blob client-side upload
+                const newBlob = await upload(renamedFile.name, renamedFile, {
                     access: 'public',
                     handleUploadUrl: '/api/upload',
-                    addRandomSuffix: true,
                     onUploadProgress: (progressEvent) => {
                         // Calculate total progress roughly
                         const currentProgress = ((i + (progressEvent.percentage / 100)) / files.length) * 100
