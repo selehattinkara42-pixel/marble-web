@@ -12,6 +12,7 @@ model SiteSettings {
   brandName   String   @default("Marble Web")
   siteTitle   String   @default("Lapis & Celikag Marble")
   description String   @default("Exclusive Natural Stone Collection")
+  siteUrl     String?  @default("https://marbleweb.com")
   logoUrl     String?
   logoWidth   Int      @default(150)
   logoHeight  Int      @default(56)
@@ -201,4 +202,21 @@ model FAQ {
   published Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model GalleryPageContent {
+  id String @id @default(cuid())
+  title String @default("Galeri")
+  subtitle String?
+  seoTitle String?
+  seoDescription String?
+}
+
+model GalleryItem {
+  id String @id @default(cuid())
+  url String
+  title String? // Optional caption
+  category String? // For filtering (Mutfak, Banyo vs)
+  order Int @default(0)
+  createdAt DateTime @default(now())
 }
