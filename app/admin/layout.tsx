@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, Package, FolderOpen, MessageSquare, LogOut, Settings, FileText, Newspaper, Layers, Users, HelpCircle, Menu, X } from "lucide-react"
+import { LayoutDashboard, Package, FolderOpen, MessageSquare, LogOut, Settings, FileText, Newspaper, Layers, Users, HelpCircle, Menu, X, ImageIcon } from "lucide-react"
 import { logoutAction } from "./login/actions"
 import { useState } from "react"
 
@@ -12,6 +12,7 @@ const sidebarItems = [
     { name: "Kategoriler", href: "/admin/categories", icon: Layers },
     { name: "Ürünler", href: "/admin/products", icon: Package },
     { name: "Projeler", href: "/admin/projects", icon: FolderOpen },
+    { name: "Galeri Yönetimi", href: "/admin/gallery", icon: ImageIcon },
     { name: "Mesajlar", href: "/admin/messages", icon: MessageSquare },
     { name: "E-Bülten Aboneleri", href: "/admin/subscribers", icon: Users },
     { name: "Sayfa İçerikleri", href: "/admin/pages", icon: FileText },
