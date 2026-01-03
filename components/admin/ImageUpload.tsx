@@ -113,6 +113,7 @@ export default function ImageUpload({
             const newBlob = await upload(file.name, file, {
                 access: 'public',
                 handleUploadUrl: '/api/upload',
+                addRandomSuffix: true,
                 onUploadProgress: (progressEvent) => {
                     setProgress(progressEvent.percentage)
                 },
