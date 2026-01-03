@@ -110,10 +110,13 @@ export default function ImageUpload({
                 file = await resizeImage(file)
             }
 
-            const newBlob = await upload(file.name, file, {
+            // Manually rename file to avoid "File already exists" error
+            const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`
+            const renamedFile = new File([file], filename, { type: file.type })
+
+            const newBlob = await upload(renamedFile.name, renamedFile, {
                 access: 'public',
                 handleUploadUrl: '/api/upload',
-                addRandomSuffix: true,
                 onUploadProgress: (progressEvent) => {
                     setProgress(progressEvent.percentage)
                 },
