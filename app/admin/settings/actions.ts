@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache"
 export async function updateSettings(formData: FormData) {
     const brandName = formData.get("brandName") as string
     const siteTitle = formData.get("siteTitle") as string
+    const siteUrl = formData.get("siteUrl") as string
     const description = formData.get("description") as string
     const address = formData.get("address") as string
     const phone = formData.get("phone") as string
@@ -37,6 +38,7 @@ export async function updateSettings(formData: FormData) {
     const data: any = {
         brandName,
         siteTitle,
+        siteUrl,
         description,
         address,
         phone,
