@@ -69,7 +69,13 @@ export async function deleteGalleryItem(id: string) {
     revalidatePath("/admin/gallery")
 }
 
-revalidatePath("/admin/gallery")
+export async function updateGalleryItemOrder(id: string, newOrder: number) {
+    await prisma.galleryItem.update({
+        where: { id },
+        data: { order: newOrder }
+    })
+    revalidatePath("/gallery")
+    revalidatePath("/admin/gallery")
 }
 
 export async function updateGalleryItem(id: string, data: { title?: string, category?: string }) {
