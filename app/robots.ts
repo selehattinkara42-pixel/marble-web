@@ -1,12 +1,16 @@
 import { MetadataRoute } from 'next'
+import { prisma } from '@/lib/prisma'
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+    const settings = await prisma.siteSettings.findFirst()
+    const baseUrl = settings?.siteUrl?.replace(/\/$/, "") || 'https://marbleweb.com'
+
     return {
         rules: {
             userAgent: '*',
             allow: '/',
             disallow: '/admin/',
         },
-        sitemap: 'https://marbleweb.com/sitemap.xml', // Replace with actual domain
+        sitemap: `${baseUrl}/sitemap.xml`,
     }
 }
