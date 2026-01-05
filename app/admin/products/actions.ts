@@ -13,6 +13,8 @@ export async function createProduct(formData: FormData) {
     const origin = formData.get("origin") as string
     const usageArea = formData.get("usageArea") as string
     const surfaceFinish = formData.get("surfaceFinish") as string
+    const seoTitle = formData.get("seoTitle") as string
+    const seoDescription = formData.get("seoDescription") as string
 
     // Old file upload (Deprecated for Vercel 4.5MB limit)
     // const imageFile = formData.get("image") as File
@@ -35,6 +37,8 @@ export async function createProduct(formData: FormData) {
             origin,
             usageArea,
             surfaceFinish,
+            seoTitle,
+            seoDescription,
         },
     })
 
@@ -79,6 +83,8 @@ export async function updateProduct(id: string, formData: FormData) {
             usageArea,
             surfaceFinish,
             ...(imageUrl && { imageUrl }),
+            seoTitle,
+            seoDescription,
         },
     })
 
