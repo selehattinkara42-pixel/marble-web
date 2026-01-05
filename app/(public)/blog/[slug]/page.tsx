@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     }
 
     return {
-        title: `${post.title} | Blog`,
-        description: post.excerpt || post.content.substring(0, 160),
+        title: post.seoTitle || `${post.title} | Blog`,
+        description: post.seoDescription || post.excerpt || post.content.substring(0, 160),
         openGraph: {
             title: post.title,
             description: post.excerpt || post.content.substring(0, 160),
