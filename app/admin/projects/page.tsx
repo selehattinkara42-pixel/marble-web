@@ -49,6 +49,14 @@ export default async function ProjectsPage() {
                                 <ImageUpload name="catalogUrl" label="Katalog PDF (İsteğe Bağlı)" accept=".pdf" folder="catalogs" />
                             </div>
                             <div>
+                                <label className="text-sm font-medium">SEO Başlık (İsteğe Bağlı)</label>
+                                <input name="seoTitle" className="w-full h-10 px-3 rounded-md border border-input bg-background" placeholder="Google'da görünecek başlık" />
+                            </div>
+                            <div>
+                                <label className="text-sm font-medium">SEO Açıklama (İsteğe Bağlı)</label>
+                                <textarea name="seoDescription" rows={2} className="w-full p-3 rounded-md border border-input bg-background" placeholder="Google'da görünecek açıklama" />
+                            </div>
+                            <div>
                                 <label className="text-sm font-medium">Açıklama</label>
                                 <textarea name="description" rows={3} className="w-full p-3 rounded-md border border-input bg-background" />
                             </div>
