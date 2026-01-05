@@ -53,6 +53,14 @@ export default async function ProductsPage() {
                                 <label className="text-sm font-medium">Açıklama</label>
                                 <textarea name="description" rows={3} className="w-full p-3 rounded-md border border-input bg-background" />
                             </div>
+                            <div>
+                                <label className="text-sm font-medium">SEO Başlık (İsteğe Bağlı)</label>
+                                <input name="seoTitle" className="w-full h-10 px-3 rounded-md border border-input bg-background" placeholder="Google'da görünecek başlık" />
+                            </div>
+                            <div>
+                                <label className="text-sm font-medium">SEO Açıklama (İsteğe Bağlı)</label>
+                                <textarea name="seoDescription" rows={2} className="w-full p-3 rounded-md border border-input bg-background" placeholder="Google'da görünecek açıklama" />
+                            </div>
 
                             {/* Technical Specs */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-muted/20 p-4 rounded-lg border border-border">
