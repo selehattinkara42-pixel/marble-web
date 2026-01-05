@@ -10,6 +10,8 @@ export async function createBlogPost(formData: FormData) {
     const excerpt = formData.get("excerpt") as string
     const content = formData.get("content") as string
     const published = formData.get("published") === "on"
+    const seoTitle = formData.get("seoTitle") as string
+    const seoDescription = formData.get("seoDescription") as string
 
     // const imageFile = formData.get("image") as File
     let coverImage = formData.get("coverImage") as string
@@ -26,6 +28,8 @@ export async function createBlogPost(formData: FormData) {
             content,
             coverImage,
             published,
+            seoTitle,
+            seoDescription,
         },
     })
 
@@ -54,6 +58,8 @@ export async function updateBlogPost(id: string, formData: FormData) {
             content,
             published,
             ...(coverImage && { coverImage }),
+            seoTitle,
+            seoDescription,
         },
     })
 
