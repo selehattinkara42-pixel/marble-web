@@ -10,6 +10,8 @@ export async function createProject(formData: FormData) {
     const description = formData.get("description") as string
     const location = formData.get("location") as string
     const year = formData.get("year") ? parseInt(formData.get("year") as string) : null
+    const seoTitle = formData.get("seoTitle") as string
+    const seoDescription = formData.get("seoDescription") as string
 
     // Old file upload
     // const imageFile = formData.get("image") as File
@@ -34,6 +36,8 @@ export async function createProject(formData: FormData) {
             location,
             year,
             ...(catalogUrl && { catalogUrl }),
+            seoTitle,
+            seoDescription,
         },
     })
 
@@ -53,6 +57,8 @@ export async function updateProject(id: string, formData: FormData) {
     const description = formData.get("description") as string
     const location = formData.get("location") as string
     const year = formData.get("year") ? parseInt(formData.get("year") as string) : null
+    const seoTitle = formData.get("seoTitle") as string
+    const seoDescription = formData.get("seoDescription") as string
 
     // const imageFile = formData.get("image") as File
     const imageUrl = formData.get("imageUrl") as string
@@ -70,6 +76,8 @@ export async function updateProject(id: string, formData: FormData) {
             year,
             ...(imageUrl && { imageUrl }),
             ...(catalogUrl && { catalogUrl }),
+            seoTitle,
+            seoDescription,
         },
     })
 
