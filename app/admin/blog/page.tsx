@@ -43,6 +43,14 @@ export default async function BlogAdminPage() {
                                 <ImageUpload name="coverImage" label="Kapak Görseli" />
                             </div>
                             <div>
+                                <label className="text-sm font-medium">SEO Başlık (İsteğe Bağlı)</label>
+                                <input name="seoTitle" className="w-full h-10 px-3 rounded-md border border-input bg-background" placeholder="Google'da görünecek başlık" />
+                            </div>
+                            <div>
+                                <label className="text-sm font-medium">SEO Açıklama (İsteğe Bağlı)</label>
+                                <textarea name="seoDescription" rows={2} className="w-full p-3 rounded-md border border-input bg-background" placeholder="Google'da görünecek açıklama" />
+                            </div>
+                            <div>
                                 <label className="text-sm font-medium">Özet (Kısa Açıklama)</label>
                                 <textarea name="excerpt" rows={2} className="w-full p-3 rounded-md border border-input bg-background" />
                             </div>
