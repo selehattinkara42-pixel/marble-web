@@ -56,9 +56,9 @@ export default function GalleryClient({ items }: GalleryClientProps) {
                         <button
                             key={cat}
                             onClick={() => setSelectedCategory(cat)}
-                            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${selectedCategory === cat
-                                    ? "bg-primary text-primary-foreground border-primary"
-                                    : "bg-transparent text-muted-foreground border-border hover:border-primary hover:text-primary"
+                            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 border shadow-sm ${selectedCategory === cat
+                                ? "bg-primary text-primary-foreground border-primary shadow-md scale-105"
+                                : "bg-background text-muted-foreground border-border hover:border-primary hover:text-primary hover:bg-muted/50"
                                 }`}
                         >
                             {cat}
@@ -76,28 +76,43 @@ export default function GalleryClient({ items }: GalleryClientProps) {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.3 }}
+                            transition={{ duration: 0.4 }}
                             key={item.id}
-                            className="break-inside-avoid relative group cursor-zoom-in rounded-xl overflow-hidden bg-muted"
+                            className="break-inside-avoid relative group cursor-zoom-in rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 bg-muted mb-4"
                             onClick={() => openLightbox(index)}
                         >
-                            <img
-                                src={item.url}
-                                alt={item.title || "Gallery Image"}
-                                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
-                                loading="lazy"
-                            />
+                            <div className="relative overflow-hidden">
+                                <img
+                                    src={item.url}
+                                    alt={item.title || "Gallery Image"}
+                                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
+                                    loading="lazy"
+                                />
 
-                            {/* Overlay */}
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <ZoomIn className="text-white w-8 h-8 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-100" />
+                                {/* Gradient Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                                {/* Icon */}
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    <div className="bg-white/10 backdrop-blur-sm p-3 rounded-full border border-white/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <ZoomIn className="text-white w-6 h-6" />
+                                    </div>
+                                </div>
                             </div>
 
-                            {/* Caption */}
+                            {/* Caption - Always visible on mobile, hover on desktop if desired, or simplified */}
                             {(item.title || item.category) && (
-                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    {item.title && <h3 className="font-medium text-sm">{item.title}</h3>}
-                                    {item.category && <p className="text-xs text-white/80">{item.category}</p>}
+                                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
+                                    {item.title && (
+                                        <h3 className="font-playfair font-bold text-lg text-white mb-1 drop-shadow-md">
+                                            {item.title}
+                                        </h3>
+                                    )}
+                                    {item.category && (
+                                        <p className="text-xs font-medium text-primary-foreground/80 tracking-wide uppercase bg-primary/90 inline-block px-2 py-1 rounded-sm">
+                                            {item.category}
+                                        </p>
+                                    )}
                                 </div>
                             )}
                         </motion.div>
