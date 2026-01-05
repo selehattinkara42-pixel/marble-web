@@ -63,6 +63,8 @@ export async function updateProduct(id: string, formData: FormData) {
     const origin = formData.get("origin") as string
     const usageArea = formData.get("usageArea") as string
     const surfaceFinish = formData.get("surfaceFinish") as string
+    const seoTitle = formData.get("seoTitle") as string
+    const seoDescription = formData.get("seoDescription") as string
 
     // const imageFile = formData.get("image") as File
     const imageUrl = formData.get("imageUrl") as string
