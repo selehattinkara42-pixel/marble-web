@@ -122,6 +122,8 @@ model Product {
   origin        String?   @default("Türkiye")
   usageArea     String?   @default("İç ve Dış Mekan")
   surfaceFinish String?   @default("Cilalı, Honlu, Fırçalı")
+  seoTitle      String?
+  seoDescription String?
 }
 
 model ProductImage {
@@ -145,6 +147,8 @@ model Project {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   catalogUrl  String?
+  seoTitle      String?
+  seoDescription String?
 }
 
 model BlogPost {
@@ -157,6 +161,8 @@ model BlogPost {
   published   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  seoTitle      String?
+  seoDescription String?
 }
 
 model Testimonial {
