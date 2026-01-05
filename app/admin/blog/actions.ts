@@ -43,6 +43,8 @@ export async function updateBlogPost(id: string, formData: FormData) {
     const excerpt = formData.get("excerpt") as string
     const content = formData.get("content") as string
     const published = formData.get("published") === "on"
+    const seoTitle = formData.get("seoTitle") as string
+    const seoDescription = formData.get("seoDescription") as string
 
     // const imageFile = formData.get("image") as File
     const coverImage = formData.get("coverImage") as string
