@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
     }
 
     return {
-        title: `${project.title} | Projelerimiz`,
-        description: project.description || `${project.title} - ${project.location} projemiz`,
+        title: project.seoTitle || `${project.title} | Projelerimiz`,
+        description: project.seoDescription || project.description || `${project.title} - ${project.location} projemiz`,
         openGraph: {
             title: project.title,
             description: project.description || `${project.title} projemiz`,
